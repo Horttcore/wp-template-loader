@@ -1,7 +1,7 @@
 {
     "name": "ralfhortt/wp-template-loader",
     "description": "A helper class to load template files from another location",
-    "license": "GPL",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Ralf Hortt",
@@ -12,6 +12,5 @@
         "psr-4": {
             "RalfHortt\\TemplateLoader\\": "src"
         }
-    },
-    "require": {}
+    }
 }
