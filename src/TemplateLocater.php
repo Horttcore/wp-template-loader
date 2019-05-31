@@ -2,7 +2,7 @@
 /**
  * Template loader
  */
-namespace Horttcore\TemplateLoader;
+namespace RalfHortt\TemplateLoader;
 
 
 /**
