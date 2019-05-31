@@ -1,4 +1,4 @@
-# Template loader
+# Template loader ![StyleCI](https://github.styleci.io/repos/189646638/shield?branch=master)
 
 A helper class to load template files from another location
 
