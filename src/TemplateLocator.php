@@ -61,7 +61,7 @@ class TemplateLocator
         array_walk(
             $templates,
             function (&$item, $key) {
-                $item = trailingslashit($this->directory . $item);
+                $item = trailingslashit($this->directory) . $item;
             }
         );
 
