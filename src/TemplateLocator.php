@@ -1,19 +1,17 @@
 <?php
 /**
- * Template loader
+ * Template loader.
  */
+
 namespace RalfHortt\TemplateLoader;
 
-
 /**
- * Template file locater
+ * Template file locater.
  */
 class TemplateLocator
 {
-
-
     /**
-     * Template types
+     * Template types.
      *
      * @var array
      */
@@ -34,23 +32,21 @@ class TemplateLocator
         'search',
         'single',
         'singular',
-        'attachment'
+        'attachment',
     ];
 
-
     /**
-     * Add WordPress hooks
+     * Add WordPress hooks.
      *
      * @param string $directory Directory to check for template files
      */
-    public function __construct( $directory )
+    public function __construct($directory)
     {
         $this->directory = $directory;
     }
 
-
     /**
-     * Prefix template folder
+     * Prefix template folder.
      *
      * @param array $templates Template files
      *
@@ -61,25 +57,22 @@ class TemplateLocator
         array_walk(
             $templates,
             function (&$item, $key) {
-                $item = trailingslashit($this->directory) . $item;
+                $item = trailingslashit($this->directory).$item;
             }
         );
 
         return $templates;
     }
 
-
     /**
-     * Add WordPress hooks
+     * Add WordPress hooks.
      *
      * @return void
      */
     public function register(): void
     {
-        foreach ( self::TEMPLATES as $templateType ) :
+        foreach (self::TEMPLATES as $templateType) :
             add_filter("{$templateType}_template_hierarchy", [$this, 'hierarchy']);
         endforeach;
     }
-
-
 }
