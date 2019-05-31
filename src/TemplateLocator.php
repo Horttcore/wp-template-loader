@@ -76,7 +76,7 @@ class TemplateLocator
      */
     public function register(): void
     {
-        foreach ( self::templateTypes as $templateType ) :
+        foreach ( self::TEMPLATES as $templateType ) :
             add_filter("{$templateType}_template_hierarchy", [$this, 'hierarchy']);
         endforeach;
     }
