@@ -1,0 +1,16 @@
+{
+    "name": "ralfhortt/wp-template-loader",
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Ralf Hortt",
+            "email": "me@horttcore.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Horttcore\\TemplateLoader\\": "src"
+        }
+    },
+    "require": {}
+}
