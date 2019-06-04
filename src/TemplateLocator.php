@@ -65,7 +65,7 @@ class TemplateLocator
     }
 
     /**
-     * Custom page template.
+     * Custom page template
      *
      * @param string[]     $post_templates Array of page templates. Keys are filenames,
      *                                     values are translated names.
@@ -80,11 +80,13 @@ class TemplateLocator
         $files = $theme->get_files('php', 3);
 
         array_walk(
-            $files, function ($absolutePath, $relativePath) use (&$postTemplates) {
+            $files,
+            function ($absolutePath, $relativePath) use (&$postTemplates) {
                 if (false === strpos($relativePath, 'resources/views/templates/')) {
                     return;
                 }
                 $headers = get_file_data($absolutePath, ['Template Name']);
+                $relativePath = str_replace(trailingslashit($this->directory), '', $relativePath);
 
                 $postTemplates[$relativePath] = $headers[0];
             }
