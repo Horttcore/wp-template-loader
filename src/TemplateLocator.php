@@ -65,7 +65,7 @@ class TemplateLocator
     }
 
     /**
-     * Custom page template
+     * Custom page template.
      *
      * @param string[]     $post_templates Array of page templates. Keys are filenames,
      *                                     values are translated names.
