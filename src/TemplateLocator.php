@@ -56,12 +56,41 @@ class TemplateLocator
     {
         array_walk(
             $templates,
-            function (&$item, $key) {
+            function (&$item) {
                 $item = trailingslashit($this->directory).$item;
             }
         );
 
         return $templates;
+    }
+
+    /**
+     * Custom page template
+     *
+     * @param string[]     $post_templates Array of page templates. Keys are filenames,
+     *                                     values are translated names.
+     * @param WP_Theme     $this           The theme object.
+     * @param WP_Post|null $post           The post being edited, provided for context, or null.
+     * @param string       $post_type      Post type to get the templates for.
+     *
+     * @return array Array of page templates. Keys are filenames, values are translated names.
+     **/
+    public function templates(array $postTemplates, \WP_Theme $theme /*, $post, string $postType*/): array
+    {
+        $files = $theme->get_files('php', 3);
+
+        array_walk(
+            $files, function ($absolutePath, $relativePath) use (&$postTemplates) {
+                if (false === strpos($relativePath, 'resources/views/templates/')) {
+                    return;
+                }
+                $headers = get_file_data($absolutePath, ['Template Name']);
+
+                $postTemplates[$relativePath] = $headers[0];
+            }
+        );
+
+        return $postTemplates;
     }
 
     /**
@@ -71,6 +100,7 @@ class TemplateLocator
      */
     public function register(): void
     {
+        add_filter('theme_templates', [$this, 'templates'], 10, 4);
         foreach (self::TEMPLATES as $templateType) :
             add_filter("{$templateType}_template_hierarchy", [$this, 'hierarchy']);
         endforeach;
