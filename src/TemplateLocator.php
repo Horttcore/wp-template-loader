@@ -74,7 +74,7 @@ class TemplateLocator
      *
      * @return array Array of page templates. Keys are filenames, values are translated names.
      **/
-    public function templates(array $postTemplates, \WP_Theme $theme , $post, string $postType): array
+    public function templates(array $postTemplates, \WP_Theme $theme, $post, string $postType): array
     {
         $files = $theme->get_files('php', 3);
         array_walk(
