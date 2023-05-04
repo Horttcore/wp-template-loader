@@ -26,7 +26,7 @@ class TemplateLocator
         'date',
         'embed',
         'home',
-        'frontpage',
+        'front-page',
         'page',
         'paged',
         'search',
@@ -40,9 +40,8 @@ class TemplateLocator
      *
      * @param string $directory Directory to check for template files
      */
-    public function __construct($directory)
+    public function __construct(protected string $directory)
     {
-        $this->directory = $directory;
     }
 
     /**
@@ -75,14 +74,13 @@ class TemplateLocator
      *
      * @return array Array of page templates. Keys are filenames, values are translated names.
      **/
-    public function templates(array $postTemplates, \WP_Theme $theme /*, $post, string $postType*/): array
+    public function templates(array $postTemplates, \WP_Theme $theme , $post, string $postType): array
     {
         $files = $theme->get_files('php', 3);
-
         array_walk(
             $files,
             function ($absolutePath, $relativePath) use (&$postTemplates) {
-                if (false === strpos($relativePath, 'resources/views/templates/')) {
+                if (false === strpos($relativePath, $this->directory)) {
                     return;
                 }
                 $headers = get_file_data($absolutePath, ['Template Name']);
@@ -92,7 +90,7 @@ class TemplateLocator
             }
         );
 
-        return $postTemplates;
+        return array_filter($postTemplates);
     }
 
     /**
@@ -103,8 +101,8 @@ class TemplateLocator
     public function register(): void
     {
         add_filter('theme_templates', [$this, 'templates'], 10, 4);
-        foreach (self::TEMPLATES as $templateType) :
+        foreach (self::TEMPLATES as $templateType) {
             add_filter("{$templateType}_template_hierarchy", [$this, 'hierarchy']);
-        endforeach;
+        }
     }
 }

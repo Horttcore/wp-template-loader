@@ -2,6 +2,11 @@
 
 All notable changes to `wp-template-loader` will be documented in this file
 
+# 1.1.2 - 04.10.2023
+
+- Fix loader for gutenberg
+- Respect template directory setting in template localization
+
 ## 1.1.1 - 04.06.2019
 
 -   Fix loader
